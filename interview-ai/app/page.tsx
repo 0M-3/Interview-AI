@@ -26,7 +26,7 @@ export default function Home() {
             value={message} 
             onChange={(e) => setMessage(e.target.value)}>
           </input>
-          <button className="p-1 rounded bg-white text-black">Submit</button>
+          <button className="p-1 rounded bg-white text-black w-[50px] active:bg-slate-200">Submit</button>
         </form>
         </div>
       </div>
