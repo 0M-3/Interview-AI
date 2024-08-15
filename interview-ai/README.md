@@ -33,6 +33,12 @@ git clone https://github.com/get-convex/convex-backend.git
 cd convex-backend
 ```
 
+To run convex locally run the following:
+```
+cd .\interview-ai\
+npx convex dev
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
