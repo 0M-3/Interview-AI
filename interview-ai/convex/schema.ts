@@ -6,4 +6,8 @@ export default defineSchema({
     input: v.string(),
     response: v.string(),
   }),
+    user_profiles: defineTable({
+        jobTitle: v.string(),
+        difficulty: v.string(),
+    }),
 });

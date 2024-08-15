@@ -1,44 +1,50 @@
 "use client"
 
-import { api } from "@/convex/_generated/api";
-import { useAction, useQuery } from "convex/react";
-import Image from "next/image";
+import { api } from "@/convex/_generated/api"
+import { useMutation } from "convex/react"
+import { useRouter } from "next/navigation"
 import { useState } from "react";
 
-export default function Home() {
-  const handlePlayerAction = useAction(api.chat.handlePlayerAction);
-  const entries =  useQuery(api.chat.getAllEntries);
-  const [message, setMessage] = useState("");
+export default function Main(){
+    const createUserProfile = useMutation(api.user_profiles.createUserProfile)
+    const router = useRouter();
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <div className="flex flex-col">
-        <div className="text-black bg-white rounded-xl h-[600px] w-[500px] mb-2 p-2 overflow-y-auto">
-          {entries?.map((entry, i) => (
-            <div key={entry._id} className="flex flex-col gap-2 text-black">
-              <p className="text-black">{entry.input}</p>
-              <p className="text-black">{entry.response}</p>
-            </div>
-          ))}
-        </div>
-        <form onSubmit={
-          (e) => {
-            e.preventDefault();
-            handlePlayerAction({ message });
-            setMessage("");
-          }
-        }>
-          <input 
-            className="p-1 rounded text-black w-[430px]"
-            name="message" 
-            value={message} 
-            onChange={(e) => setMessage(e.target.value)}>
-          </input>
-          <button className="p-1 rounded bg-white text-black w-[50px] active:bg-slate-200">Submit</button>
-        </form>
-        </div>
-      </div>
-    </main>
-  );
+    const [jobTitle, setjobTitle] = useState("");
+    const [difficulty, setDifficulty] = useState("Easy");
+    
+    return (
+    <div className="flex justify-center items-center w-full h-screen">
+        <h1>Welcome to the Interview-AI</h1>
+            <form onSubmit={
+                (e) => {
+                    e.preventDefault();
+
+                }
+            }>
+            <input className='text-black' 
+                type="text" name="jobTitle" 
+                placeholder="Job Title" id="jobTitle" 
+                value={jobTitle} 
+                onChange={((e)=> setjobTitle(e.target.value))}></input>
+            <select className="text-black" 
+                name="difficulty" 
+                id="difficulty" 
+                value={difficulty}
+                onChange={((e)=> setDifficulty(e.target.value))}>
+                <option value="Easy">Easy</option>
+                <option value="Normal">Normal</option>
+                <option value="Hard">Hard</option>
+            </select>
+
+            </form>
+        <button
+            onClick={async(e) => {
+                const userId = createUserProfile({jobTitle: jobTitle, difficulty: difficulty});
+        
+                router.push("/interview-ai/${userId}")
+            }}>
+            Begin Interview
+        </button>
+    </div>
+    )
 }
