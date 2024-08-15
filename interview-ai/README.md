@@ -1,6 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). This project also utilizes convex-backend for handling the backend for the app. [Convex](https://github.com/get-convex/convex-backend) is the backend-as-a-service for fullstack app development. Thoughtfully curated components, optimized by experts.
 
-## Getting Started
+## Getting Started with Next.js
 
 First, run the development server:
 
@@ -19,6 +19,19 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Getting started with Convex
+
+
+_We **strongly** recommend using the hosted version of Convex to get familiar
+with the development workflow before attempting to run this version locally._
+
+To get started, clone this repo:
+
+```sh
+git clone https://github.com/get-convex/convex-backend.git
+cd convex-backend
+```
 
 ## Learn More
 
