@@ -13,20 +13,22 @@ export default function Main(){
     const [difficulty, setDifficulty] = useState("Easy");
     
     return (
-    <div className="flex justify-center items-center w-full h-screen">
-        <h1>Welcome to the Interview-AI</h1>
+    <div className="flex flex-col justify-center items-center w-full h-screen p-4">
+        <h1 className="text-center mb-4">Welcome to the Interview-AI</h1>
             <form onSubmit={
                 (e) => {
                     e.preventDefault();
 
                 }
-            }>
-            <input className='text-black' 
+            }
+            className="flex flex-col gap-4 w-full max-w-md"
+            >
+            <input className='text-black p-2 rounded'
                 type="text" name="jobTitle" 
                 placeholder="Job Title" id="jobTitle" 
                 value={jobTitle} 
                 onChange={((e)=> setjobTitle(e.target.value))}></input>
-            <select className="text-black" 
+            <select className="text-black p-2 rounded" 
                 name="difficulty" 
                 id="difficulty" 
                 value={difficulty}
@@ -39,10 +41,13 @@ export default function Main(){
             </form>
         <button
             onClick={async(e) => {
-                const userId = createUserProfile({jobTitle: jobTitle, difficulty: difficulty});
+                const userId = await createUserProfile({jobTitle: jobTitle, difficulty: difficulty},);
+                console.log(userId);
         
-                router.push("/interview-ai/${userId}")
-            }}>
+                router.push(`/interview-ai/${userId}`)
+            }}
+            className="mt-4 p-2 bg-blue-500 text-white rounded"
+            >
             Begin Interview
         </button>
     </div>

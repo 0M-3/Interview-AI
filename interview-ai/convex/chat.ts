@@ -1,3 +1,5 @@
+"use client"
+
 import { action, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { api } from "./_generated/api";
@@ -10,7 +12,7 @@ const client = new OpenAI({
 
 
 export const handlePlayerAction = action({
-  args: { message: v.string()},
+  args: { message: v.string(), userId: v.id("user_profiles") },
   handler: async (ctx, args) => {
     const chatCompletion = await client.chat.completions.create({
     messages: [{ role: 'user', content: args.message }],
@@ -19,8 +21,9 @@ export const handlePlayerAction = action({
 
     const response = chatCompletion.choices[0].message.content ?? "";
     const input = args.message;
+    const userId = args.userId;
     
-    await ctx.runMutation(api.chat.insertEntry, { input, response });
+    await ctx.runMutation(api.chat.insertEntry, { input, response, userId });
 
     return chatCompletion;
   },
@@ -29,11 +32,12 @@ export const handlePlayerAction = action({
 
   export const insertEntry = mutation(
     {
-      args: { input: v.string(), response: v.string() },
+      args: { input: v.string(), response: v.string(), userId: v.id("user_profiles") },
       handler: async (ctx, args) => {
         await ctx.db.insert("entries", {
           input: args.input,
           response: args.response,
+          userId: args.userId,
         });
       },
     }
@@ -47,3 +51,10 @@ export const getAllEntries = query({
 }
 )
   
+export const getUserEntry = query({
+  args: { userId: v.string() },
+  handler: async (ctx, args) => {
+    const entries = await ctx.db.query('entries').filter((q) => q.eq(q.field("userId"), args.userId)).collect();
+    return entries;
+  },
+});
