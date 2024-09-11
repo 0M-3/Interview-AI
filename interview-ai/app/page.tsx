@@ -13,22 +13,21 @@ export default function Main(){
     const [difficulty, setDifficulty] = useState("Easy");
     
     return (
-    <div className="flex flex-col justify-center items-center w-full h-screen p-4">
-        <h1 className="text-center mb-4">Welcome to the Interview-AI</h1>
-            <form onSubmit={
-                (e) => {
-                    e.preventDefault();
-
-                }
+    <div className="flex flex-col justify-center items-center w-full h-screen p-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+        <h1 className="text-center mb-4 text-4xl font-bold">Welcome to Interview-AI</h1>
+        <form onSubmit={
+            (e) => {
+                e.preventDefault();
             }
-            className="flex flex-col gap-4 w-full max-w-md"
-            >
-            <input className='text-black p-2 rounded'
+        }
+        className="flex flex-col gap-4 w-full max-w-md bg-white p-6 rounded-lg shadow-lg"
+        >
+            <input className='text-black p-2 rounded border border-gray-300'
                 type="text" name="jobTitle" 
                 placeholder="Job Title" id="jobTitle" 
                 value={jobTitle} 
                 onChange={((e)=> setjobTitle(e.target.value))}></input>
-            <select className="text-black p-2 rounded" 
+            <select className="text-black p-2 rounded border border-gray-300" 
                 name="difficulty" 
                 id="difficulty" 
                 value={difficulty}
@@ -37,8 +36,7 @@ export default function Main(){
                 <option value="Normal">Normal</option>
                 <option value="Hard">Hard</option>
             </select>
-
-            </form>
+        </form>
         <button
             onClick={async(e) => {
                 const userId = await createUserProfile({jobTitle: jobTitle, difficulty: difficulty},);
@@ -46,7 +44,7 @@ export default function Main(){
         
                 router.push(`/interview-ai/${userId}`)
             }}
-            className="mt-4 p-2 bg-blue-500 text-white rounded"
+            className="mt-4 p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md transition duration-300"
             >
             Begin Interview
         </button>
