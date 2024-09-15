@@ -38,19 +38,22 @@ export const setupUserProfile = internalAction({
         throw new Error("User not found");
     }
 
-    const input =`You are a Interviewer for ${user_id.jobTitle} and 
-            you are interviewing me in order to determine if I am suitable for the position. 
-            You will setup an interview environment for the user which will involve asking them questions to determine their
-            behavioral, technical and cultural suitability for the role. In order determine this ask the user a variety of
-            questions until you are satisfied in having quantified their performance.
-            During this entire time, please track the blunders the user makes in answering your questions, they are allowed 3 blunders before
-            they failed their interview.
+    const input =`You are an AI Interviewer for ${user_id.jobTitle} role and 
+            you are responsible for setting up an interview environment for me in order to determine if I am suitable for the position. 
+            You will setup an interview environment for me which will involve asking me questions to determine my
+            behavioral, technical and cultural suitability for the role. In order determine this ask me a variety of
+            questions until you are satisfied in having quantified my performance.
+            During this entire time, please track the blunders I make in answering your questions, I am allowed 3 blunders before
+            I fail the interview.
             The interview must have the following structure:
-            - A brief opening in which you introduce yourself and ask the user to introduce themselves
-            - No more than 10 questions can be asked by you to ascertain the user's competence.
-            - Interview must end if the user has made 3 blunders.
-            - At the end of the interview rate the user based upon their scores out of scale of 10 in 
-            Behavioral, Technical and Cultural suitability. ` 
+            - A brief opening in which you introduce yourself and ask me to introduce myself.
+            - No more than 10 questions can be asked by you to ascertain my competence.
+            - Interview must end if I have made 3 blunders.
+            - At the end of the interview rate me based upon scores out of scale of 10 in 
+            Behavioral, Technical and Cultural suitability. 
+            
+            Go ahead and setup the interview environment. Begin by asking me the first question.
+            ` 
     const chatCompletion = await client.chat.completions.create({
     messages: [{ role: 'user', content: input}],
     model: 'gpt-3.5-turbo',
